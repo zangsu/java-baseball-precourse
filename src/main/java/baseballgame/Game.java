@@ -21,7 +21,7 @@ public class Game {
 
 	public Game(){
 		while(answer.size() < ANSWER_SIZE){
-			int randomNumber = Randoms.pickNumberInRange(0, 9);
+			int randomNumber = Randoms.pickNumberInRange(START_RANGE, END_RANGE);
 			if(!answer.contains(randomNumber)){
 				answer.add(randomNumber);
 			}
@@ -38,15 +38,16 @@ public class Game {
 		do{
 			game = new Game();
 			game.playGameOnce();
-		}while(game.restart() == false);
+		}while(game.restart());
 	}
 
 	private void playGameOnce(){
+		String inputString;
 		do{
 			System.out.print(INPUT_NUMBER_STRING);
-			String inputString = Console.readLine();
-			changeInputStringToIntArray(inputString);
-		}while(checkGameResult(INPUT_NUMBER_STRING));
+			inputString = Console.readLine();
+			//changeInputStringToIntArray(inputString);
+		}while(checkGameResult(inputString) != SUCCESS_BOOLEAN);
 	}
 
 	private boolean checkGameResult(String inputNumberString){
@@ -55,7 +56,7 @@ public class Game {
 		int ballWithStrike = getBall(inputNumberArray);
 		printResult(strike, ballWithStrike);
 
-		if(strike == CORRECT_STRIKE){
+		if(strike == SUCCESS_STRIKE){
 			return true;
 		}else{
 			return false;
@@ -71,6 +72,8 @@ public class Game {
 			printStrike(strike);
 			System.out.println();
 		}
+		printSuccess(strike);
+
 	}
 	private void printNothing(){
 		System.out.println(NOTHING_STRING);
@@ -83,6 +86,11 @@ public class Game {
 	private void printStrike(int strike){
 		if (strike != 0) {
 			System.out.print(strike + STRIKE_STRING);
+		}
+	}
+	private void printSuccess(int strike){
+		if(strike == SUCCESS_STRIKE){
+			System.out.println(SUCCESS_STRING);
 		}
 	}
 
@@ -99,14 +107,15 @@ public class Game {
 	}
 	private void verifyInputStringLength(String inputString, int correctLength){
 		if(inputString.length() != correctLength){
-			throw new IllegalArgumentException(wrongLengthInputError);
+			throw new IllegalArgumentException(wrongLengthInputError + "\nExpect : " + correctLength + "\nInput : " + inputString.length());
 		}
 	}
 	private boolean restart(){
+		System.out.println(RESTART_MESSAGE);
 		String inputString = Console.readLine();
-		if(inputString.equals(RESTART_STRING)){
+		if(inputString.equals(RESTART_INPUT_STRING)){
 			return true;
-		}else if(inputString.equals(TERMINATE_STRING)){
+		}else if(inputString.equals(TERMINATE_INPUT_STRING)){
 			return false;
 		}else{
 			throw new IllegalArgumentException("[Game.restart()]:"+ wrongInputError);
