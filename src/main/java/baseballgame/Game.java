@@ -50,9 +50,13 @@ public class Game {
 	}
 
 	private boolean checkGameResult(String inputNumberString){
+		int[] inputNumberArray = changeInputStringToIntArray(inputNumberString);
+		int strike = getStrike(inputNumberArray);
+		int ballWithStrike = getBall(inputNumberArray);
+
 	}
 
-	private int[] changeInputStringToIntArray(String inputString){ //verifyInputStringInGame() -> changeInputStringToIntArray
+	private int[] changeInputStringToIntArray(String inputString){ //
 		int[] intArray = new int[normalInputLength];
 		verifyInputStringLength(inputString, normalInputLength);
 		for(int i = 0; i<inputString.length(); i++){
@@ -77,5 +81,23 @@ public class Game {
 		}else{
 			throw new IllegalArgumentException("[Game.restart()]:"+ wrongInputError);
 		}
+	}
+	private int getStrike(int[] inputNumber){
+		int strike = 0;
+		for (int i = 0; i<answer.size(); i++) {
+			if(inputNumber[i] == answer.get(i)){
+				strike++;
+			}
+		}
+		return strike;
+	}
+	private int getBall(int[] inputNumber){
+		int ball = 0;
+		for (int i : inputNumber) {
+			if(answer.contains(i)){
+				ball++;
+			}
+		}
+		return ball;
 	}
 }
