@@ -33,12 +33,19 @@
 ┣ 📂.git<br>
 ┣ 📂.gradle<br>
 ┣ 📂.idea<br>
+┣ 📂build<br>
 ┣ 📂gradle<br>
+┣ 📂out<br>
 ┣ 📂src<br>
 ┃ ┣ 📂main<br>
 ┃ ┃ ┗ 📂java<br>
-┃ ┃ ┃ ┗ 📂baseball<br>
+┃ ┃ ┃ ┣ 📂baseball<br>
 ┃ ┃ ┃ ┃ ┗ 📜Application.java<br>
+┃ ┃ ┃ ┣ 📂baseballgame<br>
+┃ ┃ ┃ ┃ ┗ 📜Game.java<br>
+┃ ┃ ┃ ┗ 📂constant<br>
+┃ ┃ ┃ ┃ ┣ 📜Constant.java<br>
+┃ ┃ ┃ ┃ ┗ 📜StringError.java<br>
 ┃ ┗ 📂test<br>
 ┃ ┃ ┗ 📂java<br>
 ┃ ┃ ┃ ┗ 📂baseball<br>
@@ -50,8 +57,10 @@
 ┣ 📜LICENSE<br>
 ┗ 📜README.md<br>
 
-## 사용 클래스
-
+### 사용 클래스
++ baseballgame/Game : 전체 게임을 진행하는 클래스
++ constant/Constant : Game에서 사용되는 상수를 관리하는 클래스
++ constant/StringError : Exception에 사용될 에러 메시지를 관리하는 클래스
 
 ## 진행 현황
-+ 230115 - 프로젝트 시작
++ 230115 - 프로젝트 시작, 구현 완료
