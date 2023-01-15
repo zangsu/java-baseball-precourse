@@ -20,7 +20,7 @@ public class Game {
 	List<Integer> answer = new ArrayList<>();
 
 	public Game(){
-		while(answer.size() < answerSize){
+		while(answer.size() < ANSWER_SIZE){
 			int randomNumber = Randoms.pickNumberInRange(0, 9);
 			if(!answer.contains(randomNumber)){
 				answer.add(randomNumber);
@@ -43,22 +43,52 @@ public class Game {
 
 	private void playGameOnce(){
 		do{
-			System.out.print(inputNumberString);
+			System.out.print(INPUT_NUMBER_STRING);
 			String inputString = Console.readLine();
 			changeInputStringToIntArray(inputString);
-		}while(checkGameResult(inputNumberString));
+		}while(checkGameResult(INPUT_NUMBER_STRING));
 	}
 
 	private boolean checkGameResult(String inputNumberString){
 		int[] inputNumberArray = changeInputStringToIntArray(inputNumberString);
 		int strike = getStrike(inputNumberArray);
 		int ballWithStrike = getBall(inputNumberArray);
+		printResult(strike, ballWithStrike);
 
+		if(strike == CORRECT_STRIKE){
+			return true;
+		}else{
+			return false;
+		}
+
+	}
+	private void printResult(int strike, int ballWithStrike){
+		int ball = ballWithStrike - strike;
+		if(ballWithStrike == NOTHING) {
+			printNothing();
+		}else {
+			printBall(ball);
+			printStrike(strike);
+			System.out.println();
+		}
+	}
+	private void printNothing(){
+		System.out.println(NOTHING_STRING);
+	}
+	private void printBall(int ball){
+		if(ball != 0){
+			System.out.print(ball + BALL_STRING);
+		}
+	}
+	private void printStrike(int strike){
+		if (strike != 0) {
+			System.out.print(strike + STRIKE_STRING);
+		}
 	}
 
 	private int[] changeInputStringToIntArray(String inputString){ //
-		int[] intArray = new int[normalInputLength];
-		verifyInputStringLength(inputString, normalInputLength);
+		int[] intArray = new int[NORMAL_INPUT_LENGTH];
+		verifyInputStringLength(inputString, NORMAL_INPUT_LENGTH);
 		for(int i = 0; i<inputString.length(); i++){
 			if(inputString.charAt(i) < '0' || inputString.charAt(i) > '9'){
 				throw new IllegalArgumentException(wrongTypeInputError);
@@ -74,9 +104,9 @@ public class Game {
 	}
 	private boolean restart(){
 		String inputString = Console.readLine();
-		if(inputString.equals(restartString)){
+		if(inputString.equals(RESTART_STRING)){
 			return true;
-		}else if(inputString.equals(terminateString)){
+		}else if(inputString.equals(TERMINATE_STRING)){
 			return false;
 		}else{
 			throw new IllegalArgumentException("[Game.restart()]:"+ wrongInputError);
