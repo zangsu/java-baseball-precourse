@@ -1,11 +1,13 @@
 package baseballgame;
 
+import static constant.Constant.*;
+import static constant.StringError.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
-import constant.ErrorString;
 
 /**
  * run -> 전체 프로그램 실행을 담당.
@@ -40,8 +42,25 @@ public class Game {
 	}
 
 	private void playGameOnce(){
-		//한번의 게임을 실행
+		do{
+			String inputString = Console.readLine();
+			verifyInputStringInGame(inputString);
+		}while(true);
+
 	}
+
+	private void verifyInputStringInGame(String inputString){
+		if(inputString.length() != normalInputLength){
+			throw new IllegalArgumentException(wrongLengthInputError);
+		}
+		for(int i = 0; i<inputString.length(); i++){
+			char checkCharacter = inputString.charAt(i);
+			if(checkCharacter < '0' || checkCharacter > '9'){
+				throw new IllegalArgumentException(wrongTypeInputError);
+			}
+		}
+	}
+
 	private boolean restart(){
 		String inputString = Console.readLine();
 		if(inputString.equals("1")){
@@ -49,7 +68,7 @@ public class Game {
 		}else if(inputString.equals("2")){
 			return false;
 		}else{
-			throw new IllegalArgumentException("[Game.restart()]:"+ErrorString.wrongInput);
+			throw new IllegalArgumentException("[Game.restart()]:"+ wrongInputError);
 		}
 	}
 }
