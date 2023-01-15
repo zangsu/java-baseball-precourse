@@ -1,5 +1,8 @@
 package baseballgame;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 import constant.ErrorString;
@@ -12,10 +15,19 @@ import constant.ErrorString;
  * getBall -> 볼 개수 확인
  */
 public class Game {
+	List<Integer> answer = new ArrayList<>();
 
 	public Game(){
-		//게임 시작 전 필요한 초기화를 실행
-		//수를 선택을 할 때는 pickNumberInRange를 사용해야한다.
+		while(answer.size() < 3){
+			int randomNumber = Randoms.pickNumberInRange(0, 9);
+			if(!answer.contains(randomNumber)){
+				answer.add(randomNumber);
+			}
+		}
+
+		for (Integer integer : answer) {
+			System.out.println(integer.toString());
+		}
 	}
 
 	public static void run(){
@@ -24,7 +36,7 @@ public class Game {
 		do{
 			game = new Game();
 			game.playGameOnce();
-		}while(game.restart() == true);
+		}while(game.restart() == false);
 	}
 
 	private void playGameOnce(){
